@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import { graphqlHTTP } from "express-graphql";
 import mongoose from "mongoose";
 import schema from "./schema/index.mjs";
-import rootValue from "./utils/resolvers.mjs";
+import rootValue from "./resolvers/index.mjs";
 import "dotenv/config";
 
 const app = express();

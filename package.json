@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "index.js",
+  "main": "./src/app.mjs",
   "scripts": {
-    "start": "nodemon app.mjs",
-    "start:dev": "node app.mjs"
+    "start": "nodemon ./src/app.mjs",
+    "start:dev": "node ./src/app.mjs"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
