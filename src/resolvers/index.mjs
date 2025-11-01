@@ -1,6 +1,6 @@
+import { createUser, login } from "./auth.mjs";
 import { bookEvent, bookings, cancelBooking } from "./bookings.mjs";
 import { createEvent, events } from "./events.mjs";
-import { createUser } from "./users.mjs";
 
 export default {
   events,
@@ -9,4 +9,5 @@ export default {
   createUser,
   bookEvent,
   cancelBooking,
+  login,
 };

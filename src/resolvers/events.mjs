@@ -1,6 +1,6 @@
 import Event from "../models/events.mjs";
 import User from "../models/users.mjs";
-import { mockUserId, transformEvent } from "../utils/index.mjs";
+import { transformEvent } from "../utils/index.mjs";
 
 export const events = async () => {
   try {
@@ -11,19 +11,22 @@ export const events = async () => {
   }
 };
 
-export const createEvent = async ({ eventInput }) => {
+export const createEvent = async ({ eventInput }, request) => {
+  if (!request.isAuth) {
+    throw new Error("Not authenticated.");
+  }
   const event = new Event({
     title: eventInput.title,
     description: eventInput.description,
     price: +eventInput.price,
     date: new Date(eventInput.date),
-    creator: mockUserId,
+    creator: request.userId,
   });
   let createdEvent;
   try {
     const result = await event.save();
     createdEvent = transformEvent(result);
-    const creator = await User.findById(mockUserId);
+    const creator = await User.findById(request.userId);
     if (!creator) {
       throw new Error("User not found.");
     }

@@ -1,8 +1,6 @@
 import { getUser, getEvent } from "./helpers.mjs";
 import { dateToString } from "./date.mjs";
 
-export const mockUserId = "69053276c1f40065e8a90bb2";
-
 export const transformEvent = (event) => ({
   ...event._doc,
   _id: event.id,

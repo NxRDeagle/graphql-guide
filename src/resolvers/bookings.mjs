@@ -1,12 +1,11 @@
 import Event from "../models/events.mjs";
 import Booking from "../models/booking.mjs";
-import {
-  mockUserId,
-  transformBooking,
-  transformEvent,
-} from "../utils/index.mjs";
+import { transformBooking, transformEvent } from "../utils/index.mjs";
 
-export const bookings = async () => {
+export const bookings = async (_args, request) => {
+  if (!request.isAuth) {
+    throw new Error("Not authenticated.");
+  }
   try {
     const bookings = await Booking.find().populate("user").populate("event");
     return bookings.map(transformBooking);
@@ -15,14 +14,17 @@ export const bookings = async () => {
   }
 };
 
-export const bookEvent = async ({ eventId }) => {
+export const bookEvent = async ({ eventId }, request) => {
+  if (!request.isAuth) {
+    throw new Error("Not authenticated.");
+  }
   try {
     const event = await Event.findOne({ _id: eventId });
     if (!event) {
       throw new Error("Event not found.");
     }
     const booking = new Booking({
-      user: mockUserId,
+      user: request.userId,
       event,
     });
     const result = await booking.save();
@@ -32,7 +34,10 @@ export const bookEvent = async ({ eventId }) => {
   }
 };
 
-export const cancelBooking = async ({ bookingId }) => {
+export const cancelBooking = async ({ bookingId }, request) => {
+  if (!request.isAuth) {
+    throw new Error("Not authenticated.");
+  }
   try {
     const booking = await Booking.findById(bookingId).populate("event");
     if (!booking) {

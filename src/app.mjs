@@ -4,6 +4,7 @@ import { graphqlHTTP } from "express-graphql";
 import mongoose from "mongoose";
 import schema from "./schema/index.mjs";
 import rootValue from "./resolvers/index.mjs";
+import { isAuthMiddleware } from "./middlewares/isAuth.mjs";
 import "dotenv/config";
 
 const app = express();
@@ -11,6 +12,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+
+app.use(isAuthMiddleware);
 
 app.use(
   "/graphql",
