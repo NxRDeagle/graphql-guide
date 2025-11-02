@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "./src/app.mjs",
+  "main": "./graphql/app.mjs",
   "scripts": {
-    "start": "nodemon ./src/app.mjs",
-    "start:dev": "node ./src/app.mjs"
+    "start": "nodemon ./graphql/app.mjs",
+    "start:dev": "node ./graphql/app.mjs"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
