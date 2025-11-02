@@ -1,6 +1,7 @@
 import * as React from "react";
 import authContext from "../../context/auth-context";
-import "./Auth.css";
+import { MAIN_URL } from "../../constants";
+import "./auth.css";
 
 const Auth = () => {
   const context = React.useContext(authContext);
@@ -52,7 +53,7 @@ const Auth = () => {
         };
       }
 
-      fetch("http://localhost:3000/graphql", {
+      fetch(MAIN_URL, {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
