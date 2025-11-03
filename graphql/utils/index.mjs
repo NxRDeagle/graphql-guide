@@ -8,11 +8,16 @@ export const transformEvent = (event) => ({
   creator: getUser(event.creator),
 });
 
-export const transformBooking = (booking) => ({
-  ...booking._doc,
-  _id: booking.id,
-  user: getUser(booking._doc.user),
-  event: getEvent(booking._doc.event),
-  createdAt: dateToString(booking._doc.createdAt),
-  updatedAt: dateToString(booking._doc.updatedAt),
-});
+export const transformBooking = (booking) => {
+  const event = booking._doc.event;
+  if (booking._doc.event && typeof booking._doc.event === "object") {
+    return {
+      ...booking._doc,
+      _id: booking.id,
+      user: getUser(booking._doc.user),
+      event: event ? transformEvent(event) : getEvent(event),
+      createdAt: dateToString(booking._doc.createdAt),
+      updatedAt: dateToString(booking._doc.updatedAt),
+    };
+  }
+};

@@ -7,7 +7,9 @@ export const bookings = async (_args, request) => {
     throw new Error("Not authenticated.");
   }
   try {
-    const bookings = await Booking.find().populate("user").populate("event");
+    const bookings = await Booking.find({ user: request.userId }).populate(
+      "event"
+    );
     return bookings.map(transformBooking);
   } catch (err) {
     throw err;

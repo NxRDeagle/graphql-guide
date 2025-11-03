@@ -13,13 +13,13 @@ const Events = () => {
   const [isCreating, setIsCreating] = React.useState(false);
   const [events, setEvents] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState([]);
-  const [selectedEvent, setSelectedEvent] = React.useState([]);
+  const [selectedEvent, setSelectedEvent] = React.useState(null);
   const [isActive, setIsActive] = React.useState([]);
 
   const titleRef = React.useRef();
   const priceRef = React.useRef();
-  const dateRef = React.createRef();
-  const descriptionRef = React.createRef();
+  const dateRef = React.useRef();
+  const descriptionRef = React.useRef();
 
   const startCreateEventHandler = React.useCallback(() => {
     setIsCreating(true);
@@ -217,7 +217,8 @@ const Events = () => {
   React.useEffect(() => {
     fetchEvents();
     return () => setIsActive(false);
-  }, [fetchEvents, setIsActive]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -225,8 +226,6 @@ const Events = () => {
       {isCreating && (
         <Modal
           title="Add Event"
-          canCancel
-          canConfirm
           onCancel={modalCancelHandler}
           onConfirm={modalConfirmHandler}
           confirmText="Confirm"
@@ -254,8 +253,6 @@ const Events = () => {
       {selectedEvent && (
         <Modal
           title={selectedEvent.title}
-          canCancel
-          canConfirm
           onCancel={modalCancelHandler}
           onConfirm={bookEventHandler}
           confirmText={context.token ? "Book" : "Confirm"}

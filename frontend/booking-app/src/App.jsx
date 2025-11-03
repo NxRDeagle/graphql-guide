@@ -37,6 +37,9 @@ function App() {
             {authData.token && (
               <Route path="/" element={<Navigate replace to="/events" />} />
             )}
+            {authData.token && (
+              <Route path="/auth" element={<Navigate replace to="/events" />} />
+            )}
             {!authData.token && <Route path="/auth" element={<Auth />} />}
             <Route path="/events" element={<Events />} />
             {authData.token && (

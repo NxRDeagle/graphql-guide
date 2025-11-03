@@ -1,9 +1,9 @@
 import "./spinner.css";
 
-const spinner = () => (
+const Spinner = () => (
   <div className="spinner">
     <div className="lds-dual-ring" />
   </div>
 );
 
-export default spinner;
+export default Spinner;

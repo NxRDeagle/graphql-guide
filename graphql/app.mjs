@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import schema from "./schema/index.mjs";
 import rootValue from "./resolvers/index.mjs";
 import { isAuthMiddleware } from "./middlewares/isAuth.mjs";
+import { corsMiddleware } from "./middlewares/cors.mjs";
 import "dotenv/config";
 
 const app = express();
@@ -13,18 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.use((request, response, next) => {
-  response.setHeader("Access-Control-Allow-Origin", "*");
-  response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
-  response.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
-  );
-  if (request.method === "OPTIONS") {
-    return response.sendStatus(200);
-  }
-  next();
-});
+app.use(corsMiddleware);
 
 app.use(isAuthMiddleware);
 

@@ -6,8 +6,8 @@ import "./auth.css";
 const Auth = () => {
   const context = React.useContext(authContext);
   const [isLogin, setIsLogin] = React.useState(true);
-  const emailRef = React.createRef();
-  const passwordRef = React.createRef();
+  const emailRef = React.useRef();
+  const passwordRef = React.useRef();
 
   const switchModeHandler = React.useCallback(() => {
     setIsLogin(!isLogin);
