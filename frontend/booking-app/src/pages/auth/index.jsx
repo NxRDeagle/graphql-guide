@@ -68,8 +68,9 @@ const Auth = () => {
         })
         .then((json) => {
           const { data } = json;
-          if (data && data.login.token) {
-            context.login(data.login.token, data.login.userId);
+          const login = data?.login;
+          if (login && login?.token) {
+            context.login(login.token, login.userId);
           }
         })
         .catch((err) => {
